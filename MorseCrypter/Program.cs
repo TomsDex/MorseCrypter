@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using MorseCrypter;
+
+FileReader filereader = new FileReader();
+filereader.WriteToConsole();
