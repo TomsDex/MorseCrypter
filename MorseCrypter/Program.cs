@@ -1,4 +1,3 @@
 ﻿using MorseCrypter;
 
-FileReader filereader = new FileReader();
-filereader.WriteToConsole();
+Console.WriteLine("I load!");

@@ -5,35 +5,53 @@
     /// </summary>
     public class FileReader
     {
-        public string Directory { get; set; }
-        public string FileName { get; set; }
-        public string[] Text { get; set; }
-        public Dictionary<char, string> CharacterSet { get; set; }
+        public string LocalFileDirectory { get; set; }
+        public List<string>? TranslationSets { get; set; }
+        public List<Dictionary<char, string>> CharacterSets { get; set; }
 
         public FileReader()
         {
-            Directory = GetDirectory();
-            FileName = GetFileName();
-            Text = ReadFile(FileName);
-            CharacterSet = ReturnCharacterSet();
+            LocalFileDirectory = GetUserInputDirectory();
+            TranslationSets = GetTranslationSets(LocalFileDirectory);
+            CharacterSets = GetCharacterSets();
         }
 
         /// <summary>
-        /// Initialise directory of translation sets.
+        /// Gets user input for the directory of translation sets.
         /// </summary>
-        /// <returns>The directory in which the translation sets are saved.</returns>
-        public string GetDirectory()
+        /// <returns>The user-input directory in which the translation sets are saved.</returns>
+        public string GetUserInputDirectory()
         {
-            return "..\\..\\..\\..\\resources\\";
+            while (true)
+            {
+                Console.WriteLine("Please enter the directory of your translation sets (not the files themselves):");
+                string? input = Console.ReadLine();
+                if (!string.IsNullOrEmpty(input)) return input;
+                Console.WriteLine("Input cannot be empty!");
+            }
         }
 
-        /// <summary>
-        /// Get the name of the file to be read.
-        /// </summary>
-        /// <returns>The file name.</returns>
-        public string GetFileName()
+        public bool ValidateUserInputDirectory()
         {
-            return "international.txt";
+            //TODO: Validate the directory here
+            return true;
+        }
+
+        public List<string>? GetTranslationSets(string inputDirectory)
+        {
+            //Selects every file which contains the line "# Translation Set #".
+            var txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
+                           .Where(txtFile => File.ReadLines(txtFile).Any(line => line.Equals("# Translation Set #")))
+                           .ToList();
+
+            //Return null if no files contain the specified line
+            if (!txtFiles.Any())
+            {
+                return null;
+            }
+
+            List<string> foundFiles = [.. txtFiles];
+            return foundFiles;
         }
 
         /// <summary>
@@ -43,25 +61,12 @@
         /// <returns>All lines within the specified file.</returns>
         public string[] ReadFile(string FileName)
         {
-            return File.ReadAllLines(Directory + FileName);
+            return File.ReadAllLines(LocalFileDirectory + FileName);
         }
 
-        public Dictionary<char, string> ReturnCharacterSet()
+        public List<Dictionary<char, string>> GetCharacterSets()
         {
-            //TODO: Finish this
-
-            //Initialise a dictionary to store the morse code translation set.
-            Dictionary<char, string> MorseCodeTranslationSet = new Dictionary<char, string>();
             return null;
         }
-        
-        public void WriteToConsole()
-        {
-            foreach (var s in Text)
-            {
-                Console.WriteLine(s);
-            }
-        }
-
     }
 }
