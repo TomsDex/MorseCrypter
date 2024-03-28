@@ -1,4 +1,6 @@
-﻿namespace MorseCrypter
+﻿using System.Runtime.Versioning;
+
+namespace MorseCrypter
 {
     /// <summary>
     /// Provides a set of functions to read the translation sets from provided files.
@@ -12,8 +14,8 @@
         public FileReader()
         {
             LocalFileDirectory = GetUserInputDirectory();
-            TranslationSets = GetTranslationSets(LocalFileDirectory);
-            CharacterSets = GetCharacterSets();
+            TranslationSets = GetListOfTranslationSets(LocalFileDirectory);
+            CharacterSets = GetTranslationSets(TranslationSets);
         }
 
         /// <summary>
@@ -37,7 +39,7 @@
             return true;
         }
 
-        public List<string>? GetTranslationSets(string inputDirectory)
+        public List<string>? GetListOfTranslationSets(string inputDirectory)
         {
             //Selects every file which contains the line "# Translation Set #".
             var txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
@@ -45,28 +47,47 @@
                            .ToList();
 
             //Return null if no files contain the specified line
-            if (!txtFiles.Any())
+            if (txtFiles.Count == 0)
             {
                 return null;
             }
 
-            List<string> foundFiles = [.. txtFiles];
-            return foundFiles;
+            return new List<string>(txtFiles);
         }
 
         /// <summary>
-        /// Reads every line in the provided file.
+        /// Converts each file into a translation set.
         /// </summary>
-        /// <param name="FileName">The name of the file to be read.</param>
-        /// <returns>All lines within the specified file.</returns>
-        public string[] ReadFile(string FileName)
+        /// <param name="files">The files which are tagged as translation sets.</param>
+        /// <returns>A list of a dictionary of the translation sets.</returns>
+        public List<Dictionary<char, string>> GetTranslationSets(List<string> files)
         {
-            return File.ReadAllLines(LocalFileDirectory + FileName);
-        }
+            List<Dictionary<char, string>> translationSets = [];
+            foreach (var file in files)
+            {
+                Dictionary<char, string> dict = [];
 
-        public List<Dictionary<char, string>> GetCharacterSets()
-        {
-            return null;
+                var lines = File.ReadAllLines(file);
+                
+                foreach (var line in lines)
+                {
+                    //Skip lines starting with #.
+                    if (!line.StartsWith("#"))
+                    {
+                        //Store the Base36 character.
+                        char base36Key = line[0];
+                        //Store the morse translation.
+                        //The morse translation is expected to start on the third character of each line.
+                        string morseValue = line[2..];
+
+                        //Add the translation set to the dictionary.
+                        dict[base36Key] = morseValue;
+                    }
+                }
+                //Add the dictionary to the dictionary set list.
+                translationSets.Add(dict);
+            }
+            return translationSets;
         }
     }
 }
