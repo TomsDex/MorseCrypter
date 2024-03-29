@@ -1,6 +1,4 @@
-﻿using System.Runtime.Versioning;
-
-namespace MorseCrypter
+﻿namespace MorseCrypter
 {
     /// <summary>
     /// Provides a set of functions to read the translation sets from provided files.
@@ -8,14 +6,14 @@ namespace MorseCrypter
     public class FileReader
     {
         public string LocalFileDirectory { get; set; }
-        public List<string>? TranslationSets { get; set; }
-        public List<Dictionary<char, string>> CharacterSets { get; set; }
+        public List<string>? TranslationFiles { get; set; }
+        public List<Dictionary<string, string>>? CharacterSets { get; set; }
 
         public FileReader()
         {
             LocalFileDirectory = GetUserInputDirectory();
-            TranslationSets = GetListOfTranslationSets(LocalFileDirectory);
-            CharacterSets = GetTranslationSets(TranslationSets);
+            TranslationFiles = GetListOfTranslationSets(LocalFileDirectory);
+            CharacterSets = GetTranslationSets(TranslationFiles);
         }
 
         /// <summary>
@@ -39,10 +37,15 @@ namespace MorseCrypter
             return true;
         }
 
+        /// <summary>
+        /// Returns a list of every txt file containing the line "# Translation Set #".
+        /// </summary>
+        /// <param name="inputDirectory">The user-specified directory of translation sets.</param>
+        /// <returns>A list of the names of the files.</returns>
         public List<string>? GetListOfTranslationSets(string inputDirectory)
         {
             //Selects every file which contains the line "# Translation Set #".
-            var txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
+            List<string>? txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
                            .Where(txtFile => File.ReadLines(txtFile).Any(line => line.Equals("# Translation Set #")))
                            .ToList();
 
@@ -60,22 +63,24 @@ namespace MorseCrypter
         /// </summary>
         /// <param name="files">The files which are tagged as translation sets.</param>
         /// <returns>A list of a dictionary of the translation sets.</returns>
-        public List<Dictionary<char, string>> GetTranslationSets(List<string> files)
+        public List<Dictionary<string, string>>? GetTranslationSets(List<string>? files)
         {
-            List<Dictionary<char, string>> translationSets = [];
+            if (files == null) { return null; }
+            List<Dictionary<string, string>> translationSets = [];
             foreach (var file in files)
             {
-                Dictionary<char, string> dict = [];
+                Dictionary<string, string> dict = [];
 
                 var lines = File.ReadAllLines(file);
                 
                 foreach (var line in lines)
                 {
-                    //Skip lines starting with #.
-                    if (!line.StartsWith("#"))
+                    //Skip empty lines or lines starting with #.
+                    if (!line.StartsWith('#') && !string.IsNullOrEmpty(line))
                     {
                         //Store the Base36 character.
-                        char base36Key = line[0];
+                        string base36Key = line[0].ToString();
+
                         //Store the morse translation.
                         //The morse translation is expected to start on the third character of each line.
                         string morseValue = line[2..];
@@ -88,6 +93,19 @@ namespace MorseCrypter
                 translationSets.Add(dict);
             }
             return translationSets;
+        }
+
+        public void WriteToConsole()
+        {
+            Console.WriteLine("There are " + TranslationFiles.Count + "translation sets.");
+            for (int i = 0; i < TranslationFiles.Count; i++)
+            {
+                Console.WriteLine("Translation set " + TranslationFiles[i] + "is as the following");
+                foreach (var line in CharacterSets[i])
+                {
+                    Console.WriteLine(line);
+                }
+            }
         }
     }
 }
