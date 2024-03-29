@@ -1,3 +1,9 @@
 ﻿using MorseCrypter;
-FileReader fr = new();
-fr.WriteToConsole();
+internal class Program
+{
+    private static void Main()
+    {
+        FileReader fr = new();
+        fr.WriteToConsole();
+    }
+}

@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides a set of functions to read the translation sets from provided files.
     /// </summary>
-    public class FileReader
+    public sealed class FileReader
     {
         public string LocalFileDirectory { get; set; }
         public List<string>? TranslationFiles { get; set; }
@@ -20,21 +20,15 @@
         /// Gets user input for the directory of translation sets.
         /// </summary>
         /// <returns>The user-input directory in which the translation sets are saved.</returns>
-        public string GetUserInputDirectory()
+        public static string GetUserInputDirectory()
         {
             while (true)
             {
                 Console.WriteLine("Please enter the directory of your translation sets (not the files themselves):");
                 string? input = Console.ReadLine();
-                if (!string.IsNullOrEmpty(input)) return input;
-                Console.WriteLine("Input cannot be empty!");
+                if (!string.IsNullOrEmpty(input) && Directory.Exists(input)) return input;
+                Console.WriteLine("Invalid input!");
             }
-        }
-
-        public bool ValidateUserInputDirectory()
-        {
-            //TODO: Validate the directory here
-            return true;
         }
 
         /// <summary>
@@ -42,7 +36,7 @@
         /// </summary>
         /// <param name="inputDirectory">The user-specified directory of translation sets.</param>
         /// <returns>A list of the names of the files.</returns>
-        public List<string>? GetListOfTranslationSets(string inputDirectory)
+        public static List<string>? GetListOfTranslationSets(string inputDirectory)
         {
             //Selects every file which contains the line "# Translation Set #".
             List<string>? txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
@@ -63,7 +57,7 @@
         /// </summary>
         /// <param name="files">The files which are tagged as translation sets.</param>
         /// <returns>A list of a dictionary of the translation sets.</returns>
-        public List<Dictionary<string, string>>? GetTranslationSets(List<string>? files)
+        public static List<Dictionary<string, string>>? GetTranslationSets(List<string>? files)
         {
             if (files == null) { return null; }
             List<Dictionary<string, string>> translationSets = [];
@@ -97,10 +91,15 @@
 
         public void WriteToConsole()
         {
-            Console.WriteLine("There are " + TranslationFiles.Count + "translation sets.");
+            if (TranslationFiles == null || CharacterSets == null) 
+            {
+                Console.WriteLine("ain't nowt here dawg");
+                return;
+            }
+            Console.WriteLine($"There are {TranslationFiles.Count} translation sets.");
             for (int i = 0; i < TranslationFiles.Count; i++)
             {
-                Console.WriteLine("Translation set " + TranslationFiles[i] + "is as the following");
+                Console.WriteLine($"Translation set {TranslationFiles[i]} is as the following");
                 foreach (var line in CharacterSets[i])
                 {
                     Console.WriteLine(line);
