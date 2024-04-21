@@ -1,17 +1,29 @@
-﻿namespace MorseCrypter
+﻿namespace FileReader
 {
     /// <summary>
     /// Provides a set of functions to read the translation sets from provided files.
     /// </summary>
-    public sealed class FileReader
+    public class FileReader
     {
-        public string LocalFileDirectory { get; set; }
+        public string? LocalFileDirectory { get; set; }
         public List<string>? TranslationFiles { get; set; }
         public List<Dictionary<string, string>>? CharacterSets { get; set; }
 
         public FileReader()
         {
-            LocalFileDirectory = GetUserInputDirectory();
+        }
+
+        public FileReader(string? localFileDirectory)
+        {
+            LocalFileDirectory = localFileDirectory;
+        }
+
+        public void Initialise()
+        {
+            if (string.IsNullOrEmpty(LocalFileDirectory))
+            {
+                LocalFileDirectory = GetUserInputDirectory();
+            }
             TranslationFiles = GetListOfTranslationSets(LocalFileDirectory);
             CharacterSets = GetTranslationSets(TranslationFiles);
         }
@@ -20,12 +32,12 @@
         /// Gets user input for the directory of translation sets.
         /// </summary>
         /// <returns>The user-input directory in which the translation sets are saved.</returns>
-        public static string GetUserInputDirectory()
+        public string GetUserInputDirectory()
         {
             while (true)
             {
                 Console.WriteLine("Please enter the directory of your translation sets (not the files themselves):");
-                string? input = Console.ReadLine();
+                var input = Console.ReadLine();
                 if (!string.IsNullOrEmpty(input) && Directory.Exists(input)) return input;
                 Console.WriteLine("Invalid input!");
             }
@@ -36,20 +48,24 @@
         /// </summary>
         /// <param name="inputDirectory">The user-specified directory of translation sets.</param>
         /// <returns>A list of the names of the files.</returns>
-        public static List<string>? GetListOfTranslationSets(string inputDirectory)
+        public List<string>? GetListOfTranslationSets(string? inputDirectory)
         {
             //Selects every file which contains the line "# Translation Set #".
-            List<string>? txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
-                           .Where(txtFile => File.ReadLines(txtFile).Any(line => line.Equals("# Translation Set #")))
-                           .ToList();
-
-            //Return null if no files contain the specified line
-            if (txtFiles.Count == 0)
+            if (inputDirectory != null)
             {
-                return null;
+                List<string> txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
+                    .Where(txtFile => File.ReadLines(txtFile).Any(line => line.Equals("# Translation Set #")))
+                    .ToList();
+
+                //Return null if no files contain the specified line.
+                if (txtFiles.Count == 0)
+                {
+                    return null;
+                }
+                return new List<string>(txtFiles);
             }
 
-            return new List<string>(txtFiles);
+            return null;
         }
 
         /// <summary>
@@ -57,7 +73,7 @@
         /// </summary>
         /// <param name="files">The files which are tagged as translation sets.</param>
         /// <returns>A list of a dictionary of the translation sets.</returns>
-        public static List<Dictionary<string, string>>? GetTranslationSets(List<string>? files)
+        public List<Dictionary<string, string>>? GetTranslationSets(List<string>? files)
         {
             if (files == null) { return null; }
             List<Dictionary<string, string>> translationSets = [];
@@ -93,7 +109,7 @@
         {
             if (TranslationFiles == null || CharacterSets == null) 
             {
-                Console.WriteLine("ain't nowt here dawg");
+                Console.WriteLine(".");
                 return;
             }
             Console.WriteLine($"There are {TranslationFiles.Count} translation sets.");

@@ -1,9 +1,12 @@
-﻿using MorseCrypter;
-internal class Program
+﻿namespace MorseCrypter
 {
-    private static void Main()
+    public class Program
     {
-        FileReader fr = new();
-        fr.WriteToConsole();
+        private static void Main()
+        {
+            var fileReader = new FileReader.FileReader();
+            fileReader.Initialise();
+            fileReader.WriteToConsole();
+        }
     }
 }
