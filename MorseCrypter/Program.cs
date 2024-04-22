@@ -1,12 +1,3 @@
-﻿namespace MorseCrypter
-{
-    public class Program
-    {
-        private static void Main()
-        {
-            var fileReader = new FileReader.FileReader();
-            fileReader.Initialise();
-            fileReader.WriteToConsole();
-        }
-    }
-}
+﻿var fr = new FileReader.FileReader();
+fr.Initialise();
+fr.WriteToConsole();

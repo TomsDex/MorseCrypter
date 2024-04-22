@@ -5,7 +5,9 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MorseCrypter", "MorseCrypter\MorseCrypter.csproj", "{B7919AF2-B41B-4EED-82AB-4CEE2570D14F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileReader", "FileReader\FileReader.csproj", "{6649234F-7438-4B87-9C86-EC6A16B8557B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileReader", "FileReader\FileReader.csproj", "{6649234F-7438-4B87-9C86-EC6A16B8557B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileReader.Tests", "Tests\FileReader.Tests\FileReader.Tests.csproj", "{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6649234F-7438-4B87-9C86-EC6A16B8557B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6649234F-7438-4B87-9C86-EC6A16B8557B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6649234F-7438-4B87-9C86-EC6A16B8557B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
