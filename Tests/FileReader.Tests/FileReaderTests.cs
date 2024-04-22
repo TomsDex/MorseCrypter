@@ -1,21 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FileReader;
+﻿namespace FileReader.Tests;
 
-namespace FileReader.Tests
+[TestClass()]
+public class FileReaderTests
 {
-    [TestClass()]
-    public class FileReaderTests
+
+    [TestMethod()]
+    public void GetUserInputDirectoryRepeatsIfTheUserSpecifiedDirectoryIsInvalid()
     {
-
-        [TestMethod()]
-        public void GetUserInputDirectoryRepeatsIfTheUserSpecifiedDirectoryIsInvalid()
-        {
-            // Arrange
-
+        // Arrange
             
-            // Act
+        // Act
 
-            // Assert
-        }
+        // Assert
+
     }
 }
