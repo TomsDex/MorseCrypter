@@ -1,3 +1,0 @@
-﻿using MorseCrypter;
-
-Nav.Initialise();

@@ -1,17 +1,37 @@
-﻿namespace MorseCrypter;
+﻿using MorseCrypter.Core;
+
+namespace MorseCrypter.ConsoleApp;
 
 public class Nav
 {
-    public static void Initialise()
+    public FileReader FileReader { get; set; }
+    public Base36ToMorseTranslator TextToMorseTranslator { get; set; }
+    public MorseToBase36Translator MorseToTextTranslator { get; set; }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public Nav()
     {
+        //Initialises the translators.
+        TextToMorseTranslator = new Base36ToMorseTranslator();
+        MorseToTextTranslator = new MorseToBase36Translator();
+
         //Initialises the file reader with no hard-coded directory.
-        var fileReader = new FileReader.FileReader();
-        fileReader.Initialise();
+        FileReader = new FileReader();
+    }
+
+    public void Initialise()
+    {
+
+        FileReader.Initialise(); //TODO: Restructure this to be after the main menu?
+
+
 
         while (true)
         {
             Console.WriteLine("Main Menu\n");
-            Console.WriteLine();
+            Console.WriteLine("1. Translate text to morse code");
             Console.WriteLine();
             Console.WriteLine("3. Exit");
             Console.WriteLine("\nPlease enter the number of the option you would like to select:");
@@ -23,6 +43,7 @@ public class Nav
             switch (input)
             {
                 case '1':
+                    StartTranslate();
                     break;
 
                 case '2':
@@ -40,5 +61,13 @@ public class Nav
             }
             break;
         }
+    }
+
+    public void StartTranslate()
+    {
+        var text = Console.ReadLine();
+        var morse = TextToMorseTranslator.ConvertBase36ToMorse(FileReader, text);
+        Console.WriteLine(morse);
+
     }
 }

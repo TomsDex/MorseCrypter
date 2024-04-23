@@ -1,4 +1,4 @@
-﻿namespace FileReader;
+﻿namespace MorseCrypter.Core;
 
 /// <summary>
 /// Provides a set of functions to read the translation sets from provided files.
@@ -124,7 +124,7 @@ public class FileReader
             return;
         }
         Console.WriteLine($"There are {TranslationFiles.Count} translation sets.");
-        for (int i = 0; i < TranslationFiles.Count; i++)
+        for (var i = 0; i < TranslationFiles.Count; i++)
         {
             Console.WriteLine($"Translation set {TranslationFiles[i]} is as the following");
             foreach (var line in CharacterSets[i])

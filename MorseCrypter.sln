@@ -3,15 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MorseCrypter", "MorseCrypter\MorseCrypter.csproj", "{B7919AF2-B41B-4EED-82AB-4CEE2570D14F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MorseCrypter.ConsoleApp", "MorseCrypter.Console\MorseCrypter.ConsoleApp.csproj", "{B7919AF2-B41B-4EED-82AB-4CEE2570D14F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileReader", "FileReader\FileReader.csproj", "{6649234F-7438-4B87-9C86-EC6A16B8557B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileReader.Tests", "Tests\FileReader.Tests\FileReader.Tests.csproj", "{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Translator", "Translator\Translator.csproj", "{6DEE79C2-DF62-4300-9FFD-34321833FB8D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encoder", "Encoder\Encoder.csproj", "{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MorseCrypter.Core", "MorseCrypter.Core\MorseCrypter.Core.csproj", "{A8436104-1E9D-4B67-B42E-058F0B3BE737}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,22 +17,10 @@ Global
 		{B7919AF2-B41B-4EED-82AB-4CEE2570D14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7919AF2-B41B-4EED-82AB-4CEE2570D14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7919AF2-B41B-4EED-82AB-4CEE2570D14F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6649234F-7438-4B87-9C86-EC6A16B8557B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6649234F-7438-4B87-9C86-EC6A16B8557B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6649234F-7438-4B87-9C86-EC6A16B8557B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6649234F-7438-4B87-9C86-EC6A16B8557B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7A3EFBB-3E12-4C62-A2C6-8A772CEE2195}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DEE79C2-DF62-4300-9FFD-34321833FB8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DEE79C2-DF62-4300-9FFD-34321833FB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DEE79C2-DF62-4300-9FFD-34321833FB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DEE79C2-DF62-4300-9FFD-34321833FB8D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8436104-1E9D-4B67-B42E-058F0B3BE737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8436104-1E9D-4B67-B42E-058F0B3BE737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8436104-1E9D-4B67-B42E-058F0B3BE737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8436104-1E9D-4B67-B42E-058F0B3BE737}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
