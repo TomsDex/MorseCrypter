@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileReader.Tests", "Tests\F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Translator", "Translator\Translator.csproj", "{6DEE79C2-DF62-4300-9FFD-34321833FB8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encoder", "Encoder\Encoder.csproj", "{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6DEE79C2-DF62-4300-9FFD-34321833FB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DEE79C2-DF62-4300-9FFD-34321833FB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DEE79C2-DF62-4300-9FFD-34321833FB8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B89D36D9-FADD-4AC1-84FB-5ADCFE86500E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

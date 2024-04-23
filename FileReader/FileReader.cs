@@ -43,11 +43,11 @@ public class FileReader
     {
         while (true)
         {
-            Console.WriteLine("Please enter the directory of your translation sets (not the files themselves):");
+            Console.WriteLine("Please enter the directory of your translation sets:");
             var input = Console.ReadLine();
             if (!string.IsNullOrEmpty(input) && Directory.Exists(input)) return input;
             //If user input is empty or the directory does not exist, prompt the user to try again.
-            Console.WriteLine("Invalid input!");
+            Console.WriteLine("Invalid input!\nPlease enter the folder the files are contained in.");
         }
     }
 

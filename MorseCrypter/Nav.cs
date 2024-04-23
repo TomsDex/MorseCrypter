@@ -4,6 +4,10 @@ public class Nav
 {
     public static void Initialise()
     {
+        //Initialises the file reader with no hard-coded directory.
+        var fileReader = new FileReader.FileReader();
+        fileReader.Initialise();
+
         while (true)
         {
             Console.WriteLine("Main Menu\n");
