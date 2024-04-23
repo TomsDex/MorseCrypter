@@ -116,21 +116,21 @@ public class FileReader
     /// <summary>
     /// Used for testing only.
     /// </summary>
-    public void WriteToConsole()
-    {
-        if (TranslationFiles == null || CharacterSets == null) 
-        {
-            Console.WriteLine(".");
-            return;
-        }
-        Console.WriteLine($"There are {TranslationFiles.Count} translation sets.");
-        for (var i = 0; i < TranslationFiles.Count; i++)
-        {
-            Console.WriteLine($"Translation set {TranslationFiles[i]} is as the following");
-            foreach (var line in CharacterSets[i])
-            {
-                Console.WriteLine(line);
-            }
-        }
-    }
+    //public void WriteToConsole()
+    //{
+    //    if (TranslationFiles == null || CharacterSets == null) 
+    //    {
+    //        Console.WriteLine(".");
+    //        return;
+    //    }
+    //    Console.WriteLine($"There are {TranslationFiles.Count} translation sets.");
+    //    for (var i = 0; i < TranslationFiles.Count; i++)
+    //    {
+    //        Console.WriteLine($"Translation set {TranslationFiles[i]} is as the following");
+    //        foreach (var line in CharacterSets[i])
+    //        {
+    //            Console.WriteLine(line);
+    //        }
+    //    }
+    //}
 }
