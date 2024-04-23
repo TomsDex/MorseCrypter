@@ -1,6 +1,6 @@
 ﻿namespace MorseCrypter.Core
 {
-    public class InputValidation
+    public static class InputValidation
     {
 
         /// <summary>
@@ -42,5 +42,32 @@
             }
         }
 
+        /// <summary>
+        /// Gets a valid user directory.
+        /// </summary>
+        /// <param name="research">The program-specified artifact being searched for.</param>
+        /// <returns>A valid directory.</returns>
+        public static string GetValidUserDirectory(string research)
+        {
+            while (true)
+            {
+                Console.WriteLine("Please enter the directory of {0}:", research);
+                string? input;
+                do
+                {
+                    input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        Console.WriteLine("Invalid input!\nPlease enter a valid string.");
+                    }
+                    else if (!Directory.Exists(input))
+                    {
+                        Console.WriteLine("Invalid input!\nPlease enter a valid directory.");
+                    }
+                } while (string.IsNullOrEmpty(input) || !Directory.Exists(input));
+
+                return input;
+            }
+        }
     }
 }

@@ -11,29 +11,19 @@ public class FileReader
 
     public void Initialise()
     {
-        if (string.IsNullOrEmpty(LocalFileDirectory))
+        do
         {
-            LocalFileDirectory = GetUserInputDirectory();
-        }
+            //Initialise the local file directory.
+            LocalFileDirectory = InputValidation.GetValidUserDirectory("your translation files");
 
-        TranslationFiles = GetListOfTranslationSets(LocalFileDirectory);
+            //Search for translation files.
+            TranslationFiles = GetListOfTranslationSets(LocalFileDirectory);
+
+            //If no translation files are found, prompt the user to try again.
+        } while (TranslationFiles.Count == 0);
+        
+        //Convert the translation files into translation sets.
         CharacterSets = GetTranslationSets(TranslationFiles);
-    }
-
-    /// <summary>
-    /// Gets user input for the directory of translation sets.
-    /// </summary>
-    /// <returns>The user-input directory in which the translation sets are saved.</returns>
-    private static string GetUserInputDirectory()
-    {
-        while (true)
-        {
-            Console.WriteLine("Please enter the directory of your translation sets:");
-            var input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input) && Directory.Exists(input)) return input;
-            //If user input is empty or the directory does not exist, prompt the user to try again.
-            Console.WriteLine("Invalid input!\nPlease enter the folder the files are contained in.");
-        }
     }
 
     /// <summary>
@@ -45,33 +35,21 @@ public class FileReader
     {
         while (true)
         {
-            //Select every file which contains the line "# Translation Set #".
-            List<string> txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
+
+            //Return every file which contains the line "# Translation Set #".
+            return Directory.EnumerateFiles(inputDirectory, "*.txt")
                 .Where(txtFile => File.ReadLines(txtFile).Any(line => line.Equals("# Translation Set #")))
                 .ToList();
-
-            //If no files contain the specified line.
-            if (txtFiles.Count == 0)
-            {
-                Console.WriteLine("No translation files were found in that directory!\nPress 1 to try again.");
-                var input = InputValidation.GetUserNumberInput();
-
-                if (input == 1) continue;
-
-                //If the user does not want to try again, exit the program.
-                Environment.Exit(0);
-            }
-            //Return the list of files.
-            return [..txtFiles];
         }
     }
+    
 
     /// <summary>
     /// Converts each file into a translation set.
     /// </summary>
     /// <param name="files">The files which are tagged as translation sets.</param>
     /// <returns>A list of a dictionary of the translation sets.</returns>
-    public static List<Dictionary<string, string>> GetTranslationSets(List<string> files)
+    private static List<Dictionary<string, string>> GetTranslationSets(List<string> files)
     {
         List<Dictionary<string, string>> translationSets = [];
         foreach (var file in files)
