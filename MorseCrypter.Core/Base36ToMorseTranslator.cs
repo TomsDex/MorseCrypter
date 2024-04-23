@@ -18,10 +18,20 @@ public class Base36ToMorseTranslator
 
         foreach (var c in base36Text)
         {
-            transSet.TryGetValue(c.ToString(), out var morseValue);
-            //Add space for inbvetween characters
-            //Add | (pipe) for inbetween words
-            morseText += morseValue;
+            switch (c)
+            {
+                case ' ':
+                    //Add a pipe for in between words.
+                    morseText += "|";
+                    break;
+                default:
+                    transSet.TryGetValue(c.ToString(), out var morseValue);
+                    morseText += morseValue;
+                    break;
+            }
+            
+            //Add two spaces for in between characters.
+            morseText += "  ";
         }
 
         return morseText;

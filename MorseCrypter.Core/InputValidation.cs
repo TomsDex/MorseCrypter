@@ -27,5 +27,20 @@
             }
         }
 
+        /// <summary>
+        /// Gets a valid user text input.
+        /// </summary>
+        /// <returns>The user input.</returns>
+        public static string GetUserTextInput()
+        {
+            while (true)
+            {
+                var input = Console.ReadLine();
+                if (!string.IsNullOrEmpty(input)) return input;
+                //If user input is empty, prompt the user to try again.
+                Console.WriteLine("Invalid input!\nPlease enter a valid string.");
+            }
+        }
+
     }
 }

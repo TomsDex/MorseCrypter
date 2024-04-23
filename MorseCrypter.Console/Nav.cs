@@ -66,7 +66,11 @@ public class Nav
         //Loads the translation set via a user selection.
         var transSet = FileReader.CharacterSets[FileReader.PrintTranslationSetsToConsole()];
 
-        var input = Console.ReadLine();
+        Console.WriteLine("Enter your text input:");
+        //Stores the user input.
+        var input = InputValidation.GetUserTextInput().ToUpper();
+
+        //Converts the user input to morse code.
         var morse = TextToMorseTranslator.ConvertBase36ToMorse(transSet, input);
         Console.WriteLine(morse);
 
