@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel;
 
 namespace MorseCrypter.Core;
 
@@ -12,13 +12,15 @@ public class Base36ToMorseTranslator
 
     }
 
-    public string ConvertBase36ToMorse(FileReader fileReader, string base36Text)
+    public string ConvertBase36ToMorse(Dictionary<string, string> transSet, string base36Text)
     {
-        var morseText = String.Empty;
+        var morseText = string.Empty;
 
         foreach (var c in base36Text)
         {
-            fileReader.CharacterSets[0].TryGetValue(c.ToString(), out var morseValue);
+            transSet.TryGetValue(c.ToString(), out var morseValue);
+            //Add space for inbvetween characters
+            //Add | (pipe) for inbetween words
             morseText += morseValue;
         }
 

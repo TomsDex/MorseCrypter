@@ -5,25 +5,9 @@
 /// </summary>
 public class FileReader
 {
-    public string? LocalFileDirectory { get; set; }
-    public List<string>? TranslationFiles { get; set; }
-    public List<Dictionary<string, string>>? CharacterSets { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public FileReader()
-    {
-    }
-
-    /// <summary>
-    /// Override constructor containing a hard-coded directory.
-    /// </summary>
-    /// <param name="localFileDirectory">The hard-coded user directory.</param>
-    public FileReader(string? localFileDirectory)
-    {
-        LocalFileDirectory = localFileDirectory;
-    }
+    private string LocalFileDirectory { get; set; }
+    private List<string> TranslationFiles { get; set; }
+    public List<Dictionary<string, string>> CharacterSets { get; private set; }
 
     public void Initialise()
     {
@@ -31,6 +15,7 @@ public class FileReader
         {
             LocalFileDirectory = GetUserInputDirectory();
         }
+
         TranslationFiles = GetListOfTranslationSets(LocalFileDirectory);
         CharacterSets = GetTranslationSets(TranslationFiles);
     }
@@ -39,7 +24,7 @@ public class FileReader
     /// Gets user input for the directory of translation sets.
     /// </summary>
     /// <returns>The user-input directory in which the translation sets are saved.</returns>
-    public static string GetUserInputDirectory()
+    private static string GetUserInputDirectory()
     {
         while (true)
         {
@@ -54,26 +39,31 @@ public class FileReader
     /// <summary>
     /// Returns a list of every txt file containing the line "# Translation Set #".
     /// </summary>
-    /// <param name="inputDirectory">The user-specified directory of translation sets.</param>
+    /// <param name="inputDirectory">The validated user-specified directory of translation sets.</param>
     /// <returns>A list of the names of the files.</returns>
-    public static List<string>? GetListOfTranslationSets(string? inputDirectory)
+    private static List<string> GetListOfTranslationSets(string inputDirectory)
     {
-        //Selects every file which contains the line "# Translation Set #".
-        if (inputDirectory != null)
+        while (true)
         {
+            //Select every file which contains the line "# Translation Set #".
             List<string> txtFiles = Directory.EnumerateFiles(inputDirectory, "*.txt")
                 .Where(txtFile => File.ReadLines(txtFile).Any(line => line.Equals("# Translation Set #")))
                 .ToList();
 
-            //Return null if no files contain the specified line.
+            //If no files contain the specified line.
             if (txtFiles.Count == 0)
             {
-                return null;
-            }
-            return new List<string>(txtFiles);
-        }
+                Console.WriteLine("No translation files were found in that directory!\nPress 1 to try again.");
+                var input = InputValidation.GetUserNumberInput();
 
-        return null;
+                if (input == 1) continue;
+
+                //If the user does not want to try again, exit the program.
+                Environment.Exit(0);
+            }
+            //Return the list of files.
+            return [..txtFiles];
+        }
     }
 
     /// <summary>
@@ -81,56 +71,51 @@ public class FileReader
     /// </summary>
     /// <param name="files">The files which are tagged as translation sets.</param>
     /// <returns>A list of a dictionary of the translation sets.</returns>
-    public static List<Dictionary<string, string>>? GetTranslationSets(List<string>? files)
+    public static List<Dictionary<string, string>> GetTranslationSets(List<string> files)
     {
-        if (files == null) { return null; }
         List<Dictionary<string, string>> translationSets = [];
         foreach (var file in files)
         {
             Dictionary<string, string> dict = [];
 
             var lines = File.ReadAllLines(file);
-                
+
             foreach (var line in lines)
             {
                 //Skip empty lines or lines starting with #.
                 if (!line.StartsWith('#') && !string.IsNullOrEmpty(line))
                 {
                     //Store the Base36 character.
-                    string base36Key = line[0].ToString();
+                    var base36Key = line[0].ToString();
 
                     //Store the morse translation.
                     //The morse translation is expected to start on the third character of each line.
-                    string morseValue = line[2..];
+                    var morseValue = line[2..];
 
                     //Add the translation set to the dictionary.
                     dict[base36Key] = morseValue;
                 }
             }
+
             //Add the dictionary to the dictionary set list.
             translationSets.Add(dict);
         }
+
         return translationSets;
     }
 
     /// <summary>
-    /// Used for testing only.
+    /// Prints out the list of available translation sets to the console.
     /// </summary>
-    //public void WriteToConsole()
-    //{
-    //    if (TranslationFiles == null || CharacterSets == null) 
-    //    {
-    //        Console.WriteLine(".");
-    //        return;
-    //    }
-    //    Console.WriteLine($"There are {TranslationFiles.Count} translation sets.");
-    //    for (var i = 0; i < TranslationFiles.Count; i++)
-    //    {
-    //        Console.WriteLine($"Translation set {TranslationFiles[i]} is as the following");
-    //        foreach (var line in CharacterSets[i])
-    //        {
-    //            Console.WriteLine(line);
-    //        }
-    //    }
-    //}
+    public byte PrintTranslationSetsToConsole()
+    {
+        Console.WriteLine($"\nThere are {TranslationFiles.Count} translation sets available to translate to.\nPlease select which one you would like to use:");
+        for (var i = 0; i < TranslationFiles.Count; i++)
+        {
+            //Prints out the name of each translation set.
+            Console.WriteLine("{0}. {1}", i, Path.GetFileNameWithoutExtension(TranslationFiles[i]).ToUpper());
+        }
+        var input = InputValidation.GetUserNumberInput();
+        return input;
+    }
 }

@@ -32,25 +32,23 @@ public class Nav
         {
             Console.WriteLine("Main Menu\n");
             Console.WriteLine("1. Translate text to morse code");
-            Console.WriteLine();
+            Console.WriteLine("2. Translate morse code to text");
             Console.WriteLine("3. Exit");
             Console.WriteLine("\nPlease enter the number of the option you would like to select:");
 
-            //Stores the user input.
-            var keyInfo = Console.ReadKey();
-            var input = keyInfo.KeyChar;
+            var input = InputValidation.GetUserNumberInput();
 
             switch (input)
             {
-                case '1':
+                case 1:
                     StartTranslate();
                     break;
 
-                case '2':
+                case 2:
                     break;
 
                 //Exits the program.
-                case '3':
+                case 3:
                     Environment.Exit(0);
                     break;
 
@@ -65,8 +63,11 @@ public class Nav
 
     public void StartTranslate()
     {
-        var text = Console.ReadLine();
-        var morse = TextToMorseTranslator.ConvertBase36ToMorse(FileReader, text);
+        //Loads the translation set via a user selection.
+        var transSet = FileReader.CharacterSets[FileReader.PrintTranslationSetsToConsole()];
+
+        var input = Console.ReadLine();
+        var morse = TextToMorseTranslator.ConvertBase36ToMorse(transSet, input);
         Console.WriteLine(morse);
 
     }
