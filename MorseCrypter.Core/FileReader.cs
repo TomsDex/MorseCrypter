@@ -46,11 +46,20 @@ public class FileReader
             //If no files contain the specified line.
             if (txtFiles.Count != 0) return txtFiles;
             Console.WriteLine("No translation files were found in that directory!\nPress 1 to try again.");
-            var input = InputValidation.GetUserNumberInput();
+
+            //Stores the user key input.
+            var keyInfo = Console.ReadKey();
+            var input = keyInfo.KeyChar;
+
             if (input == 1)
             {
+                Console.Clear();
                 //Retrieve the new user directory.
-                Initialise();
+                InputValidation.GetValidUserDirectory("your local translation files");
+            }
+            else
+            {
+                Environment.Exit(0);
             }
         }
     }

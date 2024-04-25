@@ -45,6 +45,7 @@ public class Nav
             {
                 //Restarts to change the directory of translation files.
                 case 0:
+                    Console.Clear();
                     Nav nav = new();
                     nav.Initialise();
                     break;
