@@ -1,4 +1,5 @@
 ﻿using MorseCrypter.Core;
+using System;
 
 namespace MorseCrypter.ConsoleApp;
 
@@ -30,7 +31,9 @@ public class Nav
 
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Main Menu\n");
+            Console.WriteLine("0. Change directory of translation files");
             Console.WriteLine("1. Translate text to morse code");
             Console.WriteLine("2. Translate morse code to text");
             Console.WriteLine("3. Exit");
@@ -40,10 +43,16 @@ public class Nav
 
             switch (input)
             {
+                //Restarts to change the directory of translation files.
+                case 0:
+                    Nav nav = new();
+                    nav.Initialise();
+                    break;
+                //Starts the text to morse code translation.
                 case 1:
                     StartTranslate();
                     break;
-
+                //Starts the morse code to text translation.
                 case 2:
                     break;
 
@@ -63,15 +72,19 @@ public class Nav
 
     public void StartTranslate()
     {
-        //Loads the translation set via a user selection.
-        var transSet = FileReader.CharacterSets[FileReader.PrintTranslationSetsToConsole()];
 
+        FileReader.PrintTranslationSetsToConsole();
+        var transSetChoice = InputValidation.GetUserNumberInput();
+        var transSet = FileReader.CharacterSets[transSetChoice];
+
+        Console.Clear();
+        Console.WriteLine("Translation Set: {0}", FileReader.CharacterSets[transSetChoice].Values.First().ToUpper());
         Console.WriteLine("Enter your text input:");
         //Stores the user input.
-        var input = InputValidation.GetUserTextInput().ToUpper();
+        var textInput = InputValidation.GetUserTextInput().ToUpper();
 
         //Converts the user input to morse code.
-        var morse = TextToMorseTranslator.ConvertBase36ToMorse(transSet, input);
+        var morse = TextToMorseTranslator.ConvertBase36ToMorse(transSet, textInput);
         Console.WriteLine(morse);
 
     }
