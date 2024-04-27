@@ -84,7 +84,7 @@ public class Nav
         var textInput = InputValidation.GetUserTextInput().ToUpper();
 
         //Start the conversion process.
-        var morseText = Spine.UserInputToMorseCode(textInput, transSet);
+        var morseText = Spine.UserInputStringToMorseCode(textInput, transSet);
 
         Console.WriteLine(morseText);
 

@@ -36,7 +36,12 @@ public static class Base36ToMorseTranslator
             switch (c)
             {
                 case ' ':
-                    //TODO: Check if a second space - if so ignore
+                    //If the space after c is also a space, ignore it (this is a character separator).
+                    if (morseText.IndexOf(c) + 1 < morseText.Length && 
+                        morseText[morseText.IndexOf(c) + 1] == ' ')
+                    {
+                        // Ignore the second space
+                    }
                     break;
                 case '|':
                     //Add a pipe for in between words.

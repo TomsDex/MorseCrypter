@@ -4,7 +4,14 @@ namespace MorseCrypter.Core
 {
     public static class Spine
     {
-        public static string UserInputToMorseCode(string userInput, Dictionary<string, string> transSet)
+        /// <summary>
+        /// Contains the navigation for converting user input to Morse code.
+        /// </summary>
+        /// <param name="userInput">The string to be processed and converted to morse.</param>
+        /// <param name="transSet">The user-specified translation set.</param>
+        /// <returns>A morse code string which has been compressed,
+        /// encrypted with a user-defined password and encoded to hex before being translated.</returns>
+        public static string UserInputStringToMorseCode(string userInput, Dictionary<string, string> transSet)
         {
             //Compress the user input.
             var inputCompressed = Gzip.Compress(Encoding.UTF8.GetBytes(userInput));
@@ -15,7 +22,7 @@ namespace MorseCrypter.Core
 #endif
 
             //Encrypt the compressed user input with the password.
-            var inputCompressedEncrypted = Encryption.EncryptBytes("placeholderpassword", inputCompressed);
+            var inputCompressedEncrypted = Encryption.EncryptBytes(inputCompressed);
 
 #if DEBUG
             Console.WriteLine("Compressed & encrypted: " + BitConverter.ToString(inputCompressedEncrypted));
@@ -30,6 +37,11 @@ namespace MorseCrypter.Core
 
             //Translate the compressed, encrypted, and encoded user input to Morse code.
             return Base36ToMorseTranslator.ConvertBase36ToMorse(inputCompressedEncryptedEncoded, transSet);
+        }
+
+        public static string UserInputMorseCodeToString(string morseCode, Dictionary<string, string> transSet)
+        {
+            return null;
         }
     }
 }
