@@ -2,7 +2,7 @@
 
 namespace MorseCrypter.Core;
 
-internal class Gzip
+public class Gzip
 {
     public static byte[] Compress(byte[] buffer)
     {

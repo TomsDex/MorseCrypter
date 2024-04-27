@@ -1,20 +1,19 @@
 ﻿using System.Text;
 
-namespace MorseCrypter.Core
+namespace MorseCrypter.Core;
+
+public static class Encoder
 {
-    public class Encoder
+    public static string Encode(byte[] text)
     {
-        public string Encode(string text)
-        {
-            var bytes = Encoding.UTF8.GetBytes(text);
-            return Convert.ToHexString(bytes);
+        //var bytes = Encoding.UTF8.GetBytes(text);
+        return Convert.ToHexString(text);
 
-        }
+    }
 
-        public string Decode(string hex)
-        {
-            var bytes = Convert.FromHexString(hex);
-            return Encoding.UTF8.GetString(bytes);
-        }
+    public static string Decode(byte[] hex)
+    {
+        //var bytes = Convert.FromHexString(hex);
+        return Encoding.UTF8.GetString(hex);
     }
 }

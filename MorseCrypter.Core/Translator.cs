@@ -1,12 +1,12 @@
 ﻿namespace MorseCrypter.Core;
 
-public class Base36ToMorseTranslator
+public static class Base36ToMorseTranslator
 {
-    public string ConvertBase36ToMorse(Dictionary<string, string> transSet, string base36Text)
+    public static string ConvertBase36ToMorse(string input, Dictionary<string, string> transSet)
     {
         var morseText = string.Empty;
 
-        foreach (var c in base36Text)
+        foreach (var c in input)
         {
             switch (c)
             {
@@ -19,7 +19,7 @@ public class Base36ToMorseTranslator
                     morseText += morseValue;
                     break;
             }
-            
+
             //Add two spaces for in between characters.
             morseText += "  ";
         }
@@ -27,7 +27,7 @@ public class Base36ToMorseTranslator
         return morseText;
     }
 
-    public string ConvertMorseToBase36(Dictionary<string, string> transSet, string morseText)
+    public static string ConvertMorseToBase36(Dictionary<string, string> transSet, string morseText)
     {
         var base36Text = string.Empty;
 

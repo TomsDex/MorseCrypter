@@ -79,7 +79,7 @@ public class Trainer()
             Console.WriteLine(question + "\n");
             Console.WriteLine("Your answer: ");
 
-            //Stores the user answer.
+            //Stores the user's inputted answer.
             var userAnswer = isMorseToBase36Training
                 ? InputValidation.GetUserBase36Input()
                 : InputValidation.GetValidMorseCodeInput();
@@ -99,7 +99,7 @@ public class Trainer()
                 var playAgain = InputValidation.GetUserYNInput();
                 if (playAgain == "Y")
                 {
-                    break;
+                    break; //TODO
                 }
             }
         }

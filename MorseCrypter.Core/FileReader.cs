@@ -3,10 +3,10 @@
 /// <summary>
 /// Provides a set of functions to read the translation sets from provided files.
 /// </summary>
-public class FileReader
+public class FileReader //TODO: MAKE THIS STATIC
 {
-    private string LocalFileDirectory { get; set; }
-    private List<string>? TranslationFiles { get; set; }
+    public string LocalFileDirectory { get; set; }
+    public List<string>? TranslationFiles { get; set; }
     public List<Dictionary<string, string>>? CharacterSets { get; private set; }
 
     /// <summary>

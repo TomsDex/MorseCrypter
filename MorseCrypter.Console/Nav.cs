@@ -1,22 +1,17 @@
 ﻿using MorseCrypter.Core;
+using System.Text;
 
 namespace MorseCrypter.ConsoleApp;
 
 public class Nav
 {
-    public FileReader FileReader { get; set; }
-    public Base36ToMorseTranslator TextToMorseTranslator { get; set; }
-    public MorseToBase36Translator MorseToTextTranslator { get; set; }
+    private FileReader FileReader { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public Nav()
-    {
-        //Initialises the translators.
-        TextToMorseTranslator = new Base36ToMorseTranslator();
-        MorseToTextTranslator = new MorseToBase36Translator();
-
+    { 
         //Initialises the file reader with no hard-coded directory.
         FileReader = new FileReader();
     }
@@ -51,7 +46,7 @@ public class Nav
                     break;
                 //Starts the text to morse code translation.
                 case 1:
-                    StartTranslate();
+                    UIStartTranslate();
                     break;
                 //Starts the morse code to text translation.
                 case 2:
@@ -76,7 +71,7 @@ public class Nav
         }
     }
 
-    public void StartTranslate()
+    public void UIStartTranslate()
     {
 
         FileReader.PrintTranslationSetsToConsole();
@@ -86,12 +81,12 @@ public class Nav
         Console.Clear();
         Console.WriteLine("Translation Set: {0}", FileReader.CharacterSets[transSetChoice].Values.First().ToUpper());
         Console.WriteLine("Enter your text input:");
-        //Stores the user input.
         var textInput = InputValidation.GetUserTextInput().ToUpper();
 
-        //Converts the user input to morse code.
-        var morse = TextToMorseTranslator.ConvertBase36ToMorse(transSet, textInput);
-        Console.WriteLine(morse);
+        //Start the conversion process.
+        var morseText = Spine.UserInputToMorseCode(textInput, transSet);
+
+        Console.WriteLine(morseText);
 
     }
 }
