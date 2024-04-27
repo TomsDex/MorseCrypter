@@ -21,7 +21,7 @@ public class FileReader //TODO: MAKE THIS STATIC
     {
         if (string.IsNullOrEmpty(LocalFileDirectory))
         {
-            LocalFileDirectory = InputValidation.GetValidUserDirectory("your local translation files");
+            LocalFileDirectory = InputValidation.GetUserDirectoryInput("your local translation files");
         }
 
         TranslationFiles = GetListOfTranslationSets(LocalFileDirectory);
@@ -55,7 +55,7 @@ public class FileReader //TODO: MAKE THIS STATIC
             {
                 Console.Clear();
                 //Retrieve the new user directory.
-                InputValidation.GetValidUserDirectory("your local translation files");
+                InputValidation.GetUserDirectoryInput("your local translation files");
             }
             else
             {
@@ -93,8 +93,8 @@ public class FileReader //TODO: MAKE THIS STATIC
                         //Store the Base36 character.
                         var base36Key = line[0].ToString();
 
-                        //Store the morse translation.
-                        //The morse translation is expected to start on the third character of each line.
+                        //Store the Morse translation.
+                        //The Morse translation is expected to start on the third character of each line.
                         var morseValue = line[2..];
 
                         //Add the translation set to the dictionary.

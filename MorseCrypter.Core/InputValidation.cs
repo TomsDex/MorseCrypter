@@ -49,7 +49,7 @@ public static class InputValidation
     /// </summary>
     /// <param name="research">The program-specified artifact being searched for.</param>
     /// <returns>A valid directory.</returns>
-    public static string GetValidUserDirectory(string research)
+    public static string GetUserDirectoryInput(string research)
     {
         while (true)
         {
@@ -114,20 +114,20 @@ public static class InputValidation
     }
 
     /// <summary>
-    /// Gets a valid morse code input. The user may input a ".", "-", or space.
+    /// Gets a valid Morse code input. The user may input a ".", "-", or space.
     /// </summary>
     /// <returns>The user-input string.</returns>
-    public static string GetValidMorseCodeInput()
+    public static string GetUserMorseCodeInput()
     {
         while (true)
         {
             var input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input) && Regex.IsMatch(input, @"^[.\s-]+$"))
+            if (!string.IsNullOrEmpty(input) && Regex.IsMatch(input, @"^[.·\s-]+$"))
             {
                 var inputWithPeriodConvertedIntoInterpunct = input.Replace(".", "·");
                 return inputWithPeriodConvertedIntoInterpunct;
             }
-            Console.WriteLine("Invalid input! Please enter valid morse code.");
+            Console.WriteLine("Invalid input! Please enter valid Morse code.");
         }
     }
 }

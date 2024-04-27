@@ -36,19 +36,14 @@ public static class Encryption
     /// <summary>
     /// Encrypts a byte array using AES encryption with a specified password.
     /// The method generates a random salt and initialisation vector (IV),
-    /// prompts the user for a password, derives a key from the password,
-    /// and performs the encryption.
+    /// derives a key from the password, and performs the encryption.
     /// The salt, IV, and encrypted data are concatenated and returned.
     /// </summary>
     /// <param name="password">The password used for generating the encryption key.</param>
     /// <param name="inputBytes">The data to encrypt.</param>
     /// <returns>A byte array containing the salt, IV, and encrypted data.</returns>
-    public static byte[] EncryptBytes(byte[] inputBytes)
+    public static byte[] EncryptBytes(string password, byte[] inputBytes)
     {
-        //Prompt the user for a password.
-        Console.WriteLine("Please enter a password to encrypt with:");
-        var password = InputValidation.GetUserTextInput();
-
         // Generate random salt and IV for each encryption to enhance security.
         var salt = GenerateRandomBytes(SaltSize);
         var iv = GenerateRandomBytes(IvSize);

@@ -1,92 +1,46 @@
 ﻿namespace MorseCrypter.Core;
 
-public static class Base36ToMorseTranslator
+/// <summary>
+/// Contains the conversion to/from Morse code logic.
+/// </summary>
+public static class Translator
 {
-    public static string ConvertBase36ToMorse(string input, Dictionary<string, string> transSet)
+    /// <summary>
+    /// Converts an encoded string to a Morse code string.
+    /// </summary>
+    /// <param name="input">The text to be translated to Morse code.</param>
+    /// <param name="transSet">The translation set.</param>
+    /// <returns>The encoded string after it has been translated into Morse code.</returns>
+    public static string ConvertEncodedToMorse(string input, Dictionary<string, string> transSet)
     {
         var morseText = string.Empty;
 
         foreach (var c in input)
         {
-            switch (c)
-            {
-                case ' ':
-                    //Add a pipe for in between words.
-                    morseText += "|";
-                    break;
-                default:
-                    transSet.TryGetValue(c.ToString(), out var morseValue);
-                    morseText += morseValue;
-                    break;
-            }
-
-            //Add two spaces for in between characters.
-            morseText += "  ";
+            transSet.TryGetValue(c.ToString(), out var morseValue);
+            morseText += morseValue;
+            morseText += " ";
         }
-
         return morseText;
     }
 
-    public static string ConvertMorseToBase36(Dictionary<string, string> transSet, string morseText)
+
+    /// <summary>
+    /// Converts a Morse code string to an encoded string.
+    /// </summary>
+    /// <param name="morseText">The Morse code to be translated into text.</param>
+    /// <param name="transSet">The translation set.</param>
+    /// <returns>The encoded string after it has been translated from Morse code.</returns>
+    public static string ConvertMorseToEncoded(string morseText, Dictionary<string, string> transSet)
     {
-        var base36Text = string.Empty;
+        var translatedText = string.Empty;
 
-        foreach (var c in morseText)
-        {
-            switch (c)
-            {
-                case ' ':
-                    //If the space after c is also a space, ignore it (this is a character separator).
-                    if (morseText.IndexOf(c) + 1 < morseText.Length && 
-                        morseText[morseText.IndexOf(c) + 1] == ' ')
-                    {
-                        // Ignore the second space
-                    }
-                    break;
-                case '|':
-                    //Add a pipe for in between words.
-                    base36Text += " ";
-                    break;
-                default:
-                    transSet.TryGetValue(c.ToString(), out var morseValue);
-                    morseText += morseValue;
-                    break;
-            }
+        //Split the Morse text into individual characters.
+        var morseChars = morseText.Split(" ");
 
-            //Add two spaces for in between characters.
-            morseText += "  ";
-        }
-
-        return morseText;
-    }
-}
-
-public class MorseToBase36Translator
-{
-    public string ConvertMorseToBase36(Dictionary<string, string> transSet, string morseText)
-    {
-        //TODO: Implement this method.
-        //var base36Text = string.Empty;
-
-        //foreach (var c in base36Text)
-        //{
-        //    switch (c)
-        //    {
-        //        case ' ':
-        //            //Add a pipe for in between words.
-        //            morseText += "|";
-        //            break;
-        //        default:
-        //            transSet.TryGetValue(c.ToString(), out var morseValue);
-        //            morseText += morseValue;
-        //            break;
-        //    }
-
-        //    //Add two spaces for in between characters.
-        //    morseText += "  ";
-        //}
-
-        //return morseText;
-        return null;
+        //Translate each Morse character to a Base36 character according to the translation set.
+        return morseChars.Select(morseChar => transSet
+            .FirstOrDefault(x => x.Value == morseChar).Key)
+            .Aggregate(translatedText, (current, base36Key) => current + base36Key);
     }
 }

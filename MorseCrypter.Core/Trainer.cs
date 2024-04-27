@@ -19,9 +19,9 @@ public class Trainer()
         Console.Write("Translation Set: {0}", FileReader.CharacterSets[transSetChoice].Values.First().ToUpper());
         while (true)
         {
-            Console.WriteLine("Would you like to translate morse to letters/numbers or letters/numbers to morse?");
+            Console.WriteLine("Would you like to translate Morse to letters/numbers or letters/numbers to Morse?");
             Console.WriteLine("1. Morse to letters/numbers");
-            Console.WriteLine("2. Letters/numbers to morse");
+            Console.WriteLine("2. Letters/numbers to Morse");
             var input = InputValidation.GetUserNumberInput();
             Console.Clear();
             switch (input)
@@ -30,7 +30,7 @@ public class Trainer()
                 case 1:
                     CommenceTraining(true, transSet);
                     break;
-                //Letters/numbers to morse.
+                //Letters/numbers to Morse.
                 case 2:
                     CommenceTraining(false, transSet);
                     break;
@@ -52,8 +52,8 @@ public class Trainer()
         Console.WriteLine("How to play:");
         Console.WriteLine(
             isMorseToBase36Training
-                ? "I'll give you a morse code value from your {0} translation set, and you have to give me the letter/number it equates to!"
-                : "I'll give you a letter/number from your {0} translation set, and you have to give me the morse code it equates to!",
+                ? "I'll give you a Morse code value from your {0} translation set, and you have to give me the letter/number it equates to!"
+                : "I'll give you a letter/number from your {0} translation set, and you have to give me the Morse code it equates to!",
             transSet.ElementAt(0).Value);
 
         var streak = 0;
@@ -82,7 +82,7 @@ public class Trainer()
             //Stores the user's inputted answer.
             var userAnswer = isMorseToBase36Training
                 ? InputValidation.GetUserBase36Input()
-                : InputValidation.GetValidMorseCodeInput();
+                : InputValidation.GetUserMorseCodeInput();
 
 
             if (userAnswer == actualAnswer)
@@ -104,27 +104,6 @@ public class Trainer()
             }
         }
     }
-
-
-    /// <summary>
-    /// Generates a random Base36 key.
-    /// </summary>
-    /// <param name="transSet">The user-specified translation set.</param>
-    /// <returns>A base 36 key in a random position, as determined by GetRandomNumber.</returns>
-    //public string GenerateRandomBase36Key(Dictionary<string, string> transSet)
-    //{
-    //    return transSet.ElementAt(GenerateRandomNumber(1, transSet.Count)).Key;
-    //}
-
-    /// <summary>
-    /// Generates a random morse value.
-    /// </summary>
-    /// <param name="transSet">The user-specified translation set.</param>
-    /// <returns>A morse value in a random position, as determined by GetRandomNumber.</returns>
-    //public string GenerateRandomMorseValue(Dictionary<string, string> transSet)
-    //{
-    //    return transSet.ElementAt(GenerateRandomNumber(1, transSet.Count)).Value;
-    //}
 
     /// <summary>
     /// Generates a random number between the specified range.
