@@ -58,11 +58,7 @@ public static class InputValidation
             do
             {
                 input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))
-                {
-                    Console.WriteLine("Invalid input!\nPlease enter a valid string.");
-                }
-                else if (!Directory.Exists(input))
+                if (string.IsNullOrEmpty(input) || !Directory.Exists(input))
                 {
                     Console.WriteLine("Invalid input!\nPlease enter a valid directory.");
                 }
@@ -73,7 +69,52 @@ public static class InputValidation
     }
 
     /// <summary>
-    /// Gets a valid morse code input. THe user may input a ".", "-", or space.
+    /// Gets a valid user single key input.
+    /// </summary>
+    /// <returns>The key input.</returns>
+    public static string GetUserBase36Input()
+    {
+        while (true)
+        {
+            //Stores the user key input.
+            var keyInfo = Console.ReadKey();
+            var input = keyInfo.KeyChar;
+
+            //If the input is base 36 input.
+            if (char.IsLetterOrDigit(input))
+            {
+                return input.ToString().ToUpper();
+            }
+
+            //If the input is not a Base 36 input, prompt the user to try again.
+            Console.WriteLine("Invalid input!\nPlease enter a valid number.");
+        }
+    }
+
+    /// <summary>
+    /// Gets a valid user Yes/No input.
+    /// </summary>
+    /// <returns>Y or N depending on the user input.</returns>
+    public static string GetUserYNInput()
+    {
+        while (true)
+        {
+            //Stores the user key input.
+            var keyInfo = Console.ReadKey();
+            var input = keyInfo.KeyChar.ToString().ToUpper();
+
+            if (input is "Y" or "N")
+            {
+                return input;
+            }
+
+            Console.WriteLine("Invalid input! Please enter either 'Y' or 'N'.");
+       
+        }
+    }
+
+    /// <summary>
+    /// Gets a valid morse code input. The user may input a ".", "-", or space.
     /// </summary>
     /// <returns>The user-input string.</returns>
     public static string GetValidMorseCodeInput()
@@ -81,8 +122,12 @@ public static class InputValidation
         while (true)
         {
             var input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input) && Regex.IsMatch(input, @"^[.-\s]+$")) return input;
-            Console.WriteLine("Invalid input!\nPlease enter a valid morse code string.");
+            if (!string.IsNullOrEmpty(input) && Regex.IsMatch(input, @"^[.\s-]+$"))
+            {
+                var inputWithPeriodConvertedIntoInterpunct = input.Replace(".", "·");
+                return inputWithPeriodConvertedIntoInterpunct;
+            }
+            Console.WriteLine("Invalid input! Please enter valid morse code.");
         }
     }
 }

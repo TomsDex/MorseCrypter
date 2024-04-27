@@ -23,7 +23,10 @@ public class Nav
 
     public void Initialise()
     {
-        FileReader.Initialise();
+        if (FileReader.CharacterSets == null)
+        {
+            FileReader.Initialise();
+        }
 
         while (true)
         {
@@ -57,6 +60,8 @@ public class Nav
                 case 3:
                     Trainer trainer = new(FileReader);
                     trainer.TrainingMenu();
+                    Nav newNav = new();
+                    newNav.Initialise();
                     break;
                 //Exits the program.
                 case 4:
