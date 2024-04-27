@@ -1,5 +1,4 @@
 ﻿using MorseCrypter.Core;
-using System;
 
 namespace MorseCrypter.ConsoleApp;
 
@@ -24,10 +23,7 @@ public class Nav
 
     public void Initialise()
     {
-
-        FileReader.Initialise(); //TODO: Restructure this to be after the main menu?
-
-
+        FileReader.Initialise();
 
         while (true)
         {
@@ -36,7 +32,8 @@ public class Nav
             Console.WriteLine("0. Change directory of translation files");
             Console.WriteLine("1. Translate text to morse code");
             Console.WriteLine("2. Translate morse code to text");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Do some training");
+            Console.WriteLine("4. Exit");
             Console.WriteLine("\nPlease enter the number of the option you would like to select:");
 
             var input = InputValidation.GetUserNumberInput();
@@ -56,12 +53,15 @@ public class Nav
                 //Starts the morse code to text translation.
                 case 2:
                     break;
-
-                //Exits the program.
+                //Starts the training.
                 case 3:
+                    Trainer trainer = new(FileReader);
+                    trainer.TrainingMenu();
+                    break;
+                //Exits the program.
+                case 4:
                     Environment.Exit(0);
                     break;
-
                 //If the user input is invalid, prompt the user to try again.
                 default:
                     Console.WriteLine("Invalid input!");

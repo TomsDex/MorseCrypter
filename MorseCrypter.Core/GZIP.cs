@@ -1,32 +1,31 @@
 ﻿using System.IO.Compression;
 
-namespace MorseCrypter.Core
+namespace MorseCrypter.Core;
+
+internal class Gzip
 {
-    public class GZIP
+    public static byte[] Compress(byte[] buffer)
     {
-        public static byte[] Compress(byte[] buffer)
+        using var memStream = new MemoryStream();
+
+        using (var gZipStream = new GZipStream(memStream, CompressionMode.Compress, true))
         {
-            using var memStream = new MemoryStream();
-
-            using (var gZipStream = new GZipStream(memStream, CompressionMode.Compress, true))
-            {
-                gZipStream.Write(buffer, 0, buffer.Length);
-            }
-
-            return memStream.ToArray();
+            gZipStream.Write(buffer, 0, buffer.Length);
         }
 
-        public static byte[] Decompress(byte[] compressedData)
-        {
-            using var memStream = new MemoryStream(compressedData);
+        return memStream.ToArray();
+    } 
 
-            using var gZipStream = new GZipStream(memStream, CompressionMode.Decompress);
+    public static byte[] Decompress(byte[] compressedData)
+    {
+        using var memStream = new MemoryStream(compressedData);
 
-            using var resultStream = new MemoryStream();
+        using var gZipStream = new GZipStream(memStream, CompressionMode.Decompress);
 
-            gZipStream.CopyTo(resultStream);
+        using var resultStream = new MemoryStream();
 
-            return resultStream.ToArray();
-        }
+        gZipStream.CopyTo(resultStream);
+
+        return resultStream.ToArray();
     }
 }

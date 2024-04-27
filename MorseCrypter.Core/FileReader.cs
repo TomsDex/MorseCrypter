@@ -45,7 +45,7 @@ public class FileReader
 
             //If no files contain the specified line.
             if (txtFiles.Count != 0) return txtFiles;
-            Console.WriteLine("No translation files were found in that directory!\nPress 1 to try again.");
+            Console.WriteLine("No translation files were found in that directory!\nPress 1 to try again."); //TODO: Fix
 
             //Stores the user key input.
             var keyInfo = Console.ReadKey();

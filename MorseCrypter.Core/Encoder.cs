@@ -1,7 +1,6 @@
-﻿namespace MorseCrypter.Core
-{
-    public class EncodeTextToBase36
-    {
+﻿namespace MorseCrypter.Core;
 
-    }
+public class EncodeTextToBase36
+{
+
 }
