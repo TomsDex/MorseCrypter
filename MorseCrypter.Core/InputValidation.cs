@@ -53,7 +53,7 @@ public static class InputValidation
     {
         while (true)
         {
-            Console.WriteLine("\nPlease enter the directory of {0}:", research);
+            Console.WriteLine("Please enter the directory of {0}:", research);
             string? input;
             do
             {

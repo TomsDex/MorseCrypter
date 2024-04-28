@@ -9,13 +9,17 @@ public class Nav
 {
     public static string localFileDirectory = InputValidation.GetUserDirectoryInput("your local translation files");
     public static List<string> translationFiles = FileReader.GetListOfTranslationSets(localFileDirectory);
-    public static List<Dictionary<string, string>> translationSets = FileReader.GetTranslationSets(translationFiles);
+    public List<Dictionary<string, string>> translationSets = FileReader.GetTranslationSets(translationFiles);
     
     /// <summary>
     /// Initialises the navigation menu.
     /// </summary>
-    public static void Initialise()
+    public void Initialise()
     {
+        //Force the user to log in.
+        var isLoggedIn = false;
+        while (!isLoggedIn) isLoggedIn = Login.StartLogin();
+
         while (true)
         {
             Console.Clear();
@@ -63,7 +67,7 @@ public class Nav
     /// Starts the translation process.
     /// </summary>
     /// <param name="isTextToMorseCode">A hardcoded value to determine which way the translation process happens.</param>
-    public static void UIStartTranslate(bool isTextToMorseCode)
+    public void UIStartTranslate(bool isTextToMorseCode)
     {
         //Allow user to choose a translation set.
         var transSet = ChosenTranslationSet();
@@ -90,7 +94,7 @@ public class Nav
     /// <summary>
     /// Starts the training process.
     /// </summary>
-    public static void StartTraining()
+    public void StartTraining()
     {
         var transSet = ChosenTranslationSet();
         Trainer.TrainingMenu(transSet);
@@ -100,7 +104,7 @@ public class Nav
     /// Chooses a translation set.
     /// </summary>
     /// <returns>The chosen translation set.</returns>
-    public static Dictionary<string, string> ChosenTranslationSet()
+    public Dictionary<string, string> ChosenTranslationSet()
     {
         FileReader.PrintTranslationSetsToConsole(translationFiles);
         var transSetChoice = InputValidation.GetUserNumberInput();

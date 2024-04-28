@@ -1,3 +1,4 @@
 ﻿using MorseCrypter.ConsoleApp;
 
-Nav.Initialise();
+Nav nav = new();
+nav.Initialise();
