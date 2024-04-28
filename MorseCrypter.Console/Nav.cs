@@ -7,9 +7,9 @@ namespace MorseCrypter.ConsoleApp;
 /// </summary>
 public class Nav
 {
-    public static string localFileDirectory = InputValidation.GetUserDirectoryInput("your local translation files");
-    public static List<string> translationFiles = FileReader.GetListOfTranslationSets(localFileDirectory);
-    public List<Dictionary<string, string>> translationSets = FileReader.GetTranslationSets(translationFiles);
+    private static readonly string LocalFileDirectory = InputValidation.GetUserDirectoryInput("your local translation files");
+    private static readonly List<string> TranslationFiles = FileReader.GetListOfTranslationSets(LocalFileDirectory);
+    private readonly List<Dictionary<string, string>?>? _translationSets = FileReader.GetTranslationSets(TranslationFiles);
     
     /// <summary>
     /// Initialises the navigation menu.
@@ -36,12 +36,12 @@ public class Nav
             {
                 //Starts the text to Morse code translation.
                 case 1:
-                    UIStartTranslate(true);
+                    UiStartTranslate(true);
                     break;
 
                 //Starts the Morse code to text translation.
                 case 2:
-                    UIStartTranslate(false);
+                    UiStartTranslate(false);
                     break;
 
                 //Starts the training.
@@ -67,7 +67,7 @@ public class Nav
     /// Starts the translation process.
     /// </summary>
     /// <param name="isTextToMorseCode">A hardcoded value to determine which way the translation process happens.</param>
-    public void UIStartTranslate(bool isTextToMorseCode)
+    private void UiStartTranslate(bool isTextToMorseCode)
     {
         //Allow user to choose a translation set.
         var transSet = ChosenTranslationSet();
@@ -94,21 +94,21 @@ public class Nav
     /// <summary>
     /// Starts the training process.
     /// </summary>
-    public void StartTraining()
+    private void StartTraining()
     {
         var transSet = ChosenTranslationSet();
         Trainer.TrainingMenu(transSet);
     }
 
     /// <summary>
-    /// Chooses a translation set.
+    /// Selects a user-chosen translation set.
     /// </summary>
     /// <returns>The chosen translation set.</returns>
-    public Dictionary<string, string> ChosenTranslationSet()
+    private Dictionary<string, string>? ChosenTranslationSet()
     {
-        FileReader.PrintTranslationSetsToConsole(translationFiles);
+        FileReader.PrintTranslationSetsToConsole(TranslationFiles);
         var transSetChoice = InputValidation.GetUserNumberInput();
         Console.Clear();
-        return translationSets[transSetChoice];
+        return _translationSets?[transSetChoice];
     }
 }

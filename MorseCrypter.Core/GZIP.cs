@@ -5,7 +5,7 @@ namespace MorseCrypter.Core;
 /// <summary>
 /// Compresses and decompresses text.
 /// </summary>
-public class Gzip
+public abstract class Gzip
 {
     /// <summary>
     /// Compresses a byte array.

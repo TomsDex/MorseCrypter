@@ -47,9 +47,9 @@ public static class FileReader
     /// </summary>
     /// <param name="files">The files which are tagged as translation sets.</param>
     /// <returns>A list of a dictionary of the translation sets.</returns>
-    public static List<Dictionary<string, string>>? GetTranslationSets(List<string> files)
+    public static List<Dictionary<string, string>?>? GetTranslationSets(List<string> files)
     {
-        List<Dictionary<string, string>> translationSets = [];
+        List<Dictionary<string, string>?> translationSets = [];
         foreach (var file in files)
         {
             Dictionary<string, string> dict = [];
@@ -64,18 +64,16 @@ public static class FileReader
                 foreach (var line in lines)
                 {
                     //Skip empty lines or lines starting with #.
-                    if (!line.StartsWith('#') && !string.IsNullOrEmpty(line))
-                    {
-                        //Store the Base36 character.
-                        var base36Key = line[0].ToString();
+                    if (line.StartsWith('#') || string.IsNullOrEmpty(line)) continue;
+                    //Store the Base36 character.
+                    var base36Key = line[0].ToString();
 
-                        //Store the Morse translation.
-                        //The Morse translation is expected to start on the third character of each line.
-                        var morseValue = line[2..];
+                    //Store the Morse translation.
+                    //The Morse translation is expected to start on the third character of each line.
+                    var morseValue = line[2..];
 
-                        //Add the translation set to the dictionary.
-                        dict[base36Key] = morseValue;
-                    }
+                    //Add the translation set to the dictionary.
+                    dict[base36Key] = morseValue;
                 }
 
                 //Add the dictionary to the dictionary set list.
@@ -105,7 +103,7 @@ public static class FileReader
     /// </summary>
     /// <param name="file">The file to be checked</param>
     /// <returns>True if the length of the file is 0.</returns>
-    public static bool FileIsEmpty(string file)
+    private static bool FileIsEmpty(string file)
     {
         return new FileInfo(file).Length == 0;
     }

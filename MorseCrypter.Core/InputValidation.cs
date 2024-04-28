@@ -95,7 +95,7 @@ public static class InputValidation
     /// Gets a valid user Yes/No input.
     /// </summary>
     /// <returns>Y or N depending on the user input.</returns>
-    public static string GetUserYNInput()
+    public static string GetUserYesNoInput()
     {
         while (true)
         {

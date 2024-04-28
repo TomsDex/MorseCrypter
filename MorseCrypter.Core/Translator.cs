@@ -11,7 +11,7 @@ public static class Translator
     /// <param name="input">The text to be translated to Morse code.</param>
     /// <param name="transSet">The translation set.</param>
     /// <returns>The encoded string after it has been translated into Morse code.</returns>
-    public static string ConvertEncodedToMorse(string input, Dictionary<string, string> transSet)
+    public static string ConvertEncodedToMorse(string input, Dictionary<string, string>? transSet)
     {
         var morseText = string.Empty;
 
@@ -31,7 +31,7 @@ public static class Translator
     /// <param name="morseText">The Morse code to be translated into text.</param>
     /// <param name="transSet">The translation set.</param>
     /// <returns>The encoded string after it has been translated from Morse code.</returns>
-    public static string ConvertMorseToEncoded(string morseText, Dictionary<string, string> transSet)
+    public static string ConvertMorseToEncoded(string morseText, Dictionary<string, string>? transSet)
     {
         var translatedText = string.Empty;
 

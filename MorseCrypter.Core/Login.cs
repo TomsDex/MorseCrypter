@@ -73,12 +73,12 @@ public abstract class Login
         var password = InputValidation.GetUserTextInput();
 
         //Hash the password and compare it to the stored hash and salt.
-        var salt = Convert.FromHexString(lines[1].Substring(6));
+        var salt = Convert.FromHexString(lines[1][6..]);
         var hash = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256);
         var hashedPassword = Convert.ToHexString(hash.GetBytes(64));
 
         //If the password is correct, log the user in.
-        if (hashedPassword == lines[2].Substring(10))
+        if (hashedPassword == lines[2][10..])
         {
             Console.WriteLine("Login successful.");
             return true;

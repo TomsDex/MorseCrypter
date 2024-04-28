@@ -10,13 +10,12 @@ public static class Trainer
     /// The main menu of the training functionality.
     /// </summary>
     /// <param name="transSet">The translation set.</param>
-    public static void TrainingMenu(Dictionary<string, string> transSet)
+    public static void TrainingMenu(Dictionary<string, string>? transSet)
     {
         Console.Clear();
-        Console.WriteLine("Translation Set: {0}", transSet.Values.First().ToUpper());
-        while (true)
-        {
-            Console.WriteLine("Would you like to translate Morse to letters/numbers or letters/numbers to Morse?");
+        Console.WriteLine("Translation Set: {0}", transSet?.Values.First().ToUpper());
+        
+        Console.WriteLine("Would you like to translate Morse to letters/numbers or letters/numbers to Morse?");
             Console.WriteLine("1. Morse to letters/numbers");
             Console.WriteLine("2. Letters/numbers to Morse");
             var input = InputValidation.GetUserNumberInput();
@@ -38,7 +37,6 @@ public static class Trainer
                     break;
 
             }
-        }
     }
 
     /// <summary>
@@ -46,9 +44,10 @@ public static class Trainer
     /// </summary>
     /// <param name="isMorseToBase36Training">If the user has selected to translate Morse to Base 36.</param>
     /// <param name="transSet">The user-selected translation set.</param>
-    public static void CommenceTraining(bool isMorseToBase36Training, Dictionary<string, string> transSet)
+    private static void CommenceTraining(bool isMorseToBase36Training, Dictionary<string, string>? transSet)
     {
         Console.WriteLine("How to play:");
+        if (transSet == null) return;
         Console.WriteLine(
             isMorseToBase36Training
                 ? "I'll give you a Morse code value from your {0} translation set, and you have to give me the letter/number it equates to!"
@@ -95,7 +94,7 @@ public static class Trainer
                 Console.WriteLine("Your streak was {0}", streak);
                 streak = 0;
                 Console.WriteLine("Would you like to play again? Y/N");
-                var playAgain = InputValidation.GetUserYNInput();
+                var playAgain = InputValidation.GetUserYesNoInput();
 
                 //If the user wants to play again, restart the training.
                 if (playAgain == "Y") CommenceTraining(isMorseToBase36Training, transSet);

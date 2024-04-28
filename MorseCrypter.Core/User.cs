@@ -10,17 +10,17 @@ public class User
     /// <summary>
     /// The user-defined username.
     /// </summary>
-    public string Username { get; set; }
+    public string Username { get; }
 
     /// <summary>
     /// A randomly generated salt.
     /// </summary>
-    public string Salt { get; set; }
+    private string Salt { get; }
 
     /// <summary>
     /// The hashed password.
     /// </summary>
-    public string Password { get; set; }
+    private string Password { get; }
 
     /// <summary>
     /// Constructor.
@@ -36,7 +36,7 @@ public class User
     /// Prompts the user to enter their username.
     /// </summary>
     /// <returns>The username.</returns>
-    public string GetUsername()
+    private static string GetUsername()
     {
         Console.WriteLine("Please enter your username:");
         return InputValidation.GetUserTextInput();
@@ -47,7 +47,7 @@ public class User
     /// </summary>
     /// <param name="salt">The randomly generated salt.</param>
     /// <returns>The password, stored as a hex string.</returns>
-    string GetAndHashPassword(out byte[] salt)
+    private static string GetAndHashPassword(out byte[] salt)
     {
         Console.WriteLine("Please enter your password:");
         var password = InputValidation.GetUserTextInput();
@@ -64,8 +64,8 @@ public class User
     /// </summary>
     public void WriteToFile()
     {
-        string filePath = Username + ".txt";
-        using StreamWriter writer = new StreamWriter(filePath);
+        var filePath = Username + ".txt";
+        using var writer = new StreamWriter(filePath);
         writer.WriteLine($"Username: {Username}");
         writer.WriteLine($"Salt: {Salt}");
         writer.WriteLine($"Password: {Password}");

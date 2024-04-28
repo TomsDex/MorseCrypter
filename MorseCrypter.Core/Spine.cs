@@ -11,7 +11,7 @@ public static class Spine
     /// <param name="transSet">The user-specified translation set.</param>
     /// <returns>A Morse code string which has been compressed,
     /// encrypted with a user-defined password and encoded to hex before being translated.</returns>
-    public static string UserInputStringToMorseCode(string textUserInput, Dictionary<string, string> transSet)
+    public static string UserInputStringToMorseCode(string textUserInput, Dictionary<string, string>? transSet)
     {
         //Before starting, the user must enter the password to encrypt the text.
         Console.WriteLine("Please enter the password to encrypt your text with:");
@@ -49,7 +49,7 @@ public static class Spine
     /// <param name="morseUserInput">The string to be processed and converted to text.</param>
     /// <param name="transSet">The user-specified translation set.</param>
     /// <returns>A text string which has been translated into text, decoded, decrypted with a pre-specified password and decompressed.</returns>
-    public static string UserInputMorseCodeToString(string morseUserInput, Dictionary<string, string> transSet)
+    public static string UserInputMorseCodeToString(string morseUserInput, Dictionary<string, string>? transSet)
     {
         //Before starting, the user must enter the password to decrypt the Morse code.
         Console.WriteLine("Please enter the password to decrypt the Morse code:");
