@@ -66,14 +66,14 @@ namespace MorseCrypter.Core
             var outputTranslatedDecoded = Encoder.Decode(outputTranslated);
 
 #if DEBUG
-            Console.WriteLine("Translated to hex and decoded: " + outputTranslatedDecoded);
+            Console.WriteLine("Translated to hex and decoded: " + BitConverter.ToString(outputTranslatedDecoded));
 #endif
 
             //Decrypt the decoded text with the password.
             var outputTranslatedDecodedDecrypted = Encryption.DecryptBytes(password, outputTranslatedDecoded);
 
 #if DEBUG
-            Console.WriteLine("Translated to hex, decoded and decrypted: " + outputTranslatedDecodedDecrypted);
+            Console.WriteLine("Translated to hex, decoded and decrypted: " + BitConverter.ToString(outputTranslatedDecodedDecrypted));
 #endif
             //Decompress the decrypted text.
             return Encoding.UTF8.GetString(Gzip.Decompress(outputTranslatedDecodedDecrypted));

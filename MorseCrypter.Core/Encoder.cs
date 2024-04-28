@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace MorseCrypter.Core;
+﻿namespace MorseCrypter.Core;
 
 /// <summary>
 /// Provides logic for encoding and decoding text to and from hex.

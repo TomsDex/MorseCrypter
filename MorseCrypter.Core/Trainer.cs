@@ -1,22 +1,19 @@
 ﻿namespace MorseCrypter.Core;
 
-public class Trainer()
+/// <summary>
+/// The training functionality.
+/// </summary>
+public static class Trainer
 {
-    public FileReader FileReader { get; set; }
 
-    public Trainer(FileReader fileReader) : this()
+    /// <summary>
+    /// The main menu of the training functionality.
+    /// </summary>
+    /// <param name="transSet">The translation set.</param>
+    public static void TrainingMenu(Dictionary<string, string> transSet)
     {
-        FileReader = fileReader;
-    }
-
-    public void TrainingMenu()
-    {
-        FileReader.PrintTranslationSetsToConsole();
-        var transSetChoice = InputValidation.GetUserNumberInput();
-        var transSet = FileReader.CharacterSets[transSetChoice];
-
         Console.Clear();
-        Console.Write("Translation Set: {0}", FileReader.CharacterSets[transSetChoice].Values.First().ToUpper());
+        Console.Write("Translation Set: {0}", transSet.Values.First().ToUpper());
         while (true)
         {
             Console.WriteLine("Would you like to translate Morse to letters/numbers or letters/numbers to Morse?");
@@ -30,10 +27,12 @@ public class Trainer()
                 case 1:
                     CommenceTraining(true, transSet);
                     break;
+
                 //Letters/numbers to Morse.
                 case 2:
                     CommenceTraining(false, transSet);
                     break;
+
                 default:
                     Console.WriteLine("Invalid input!");
                     break;
@@ -47,7 +46,7 @@ public class Trainer()
     /// </summary>
     /// <param name="isMorseToBase36Training">If the user has selected to translate Morse to Base 36.</param>
     /// <param name="transSet">The user-selected translation set.</param>
-    public void CommenceTraining(bool isMorseToBase36Training, Dictionary<string, string> transSet)
+    public static void CommenceTraining(bool isMorseToBase36Training, Dictionary<string, string> transSet)
     {
         Console.WriteLine("How to play:");
         Console.WriteLine(
@@ -111,7 +110,7 @@ public class Trainer()
     /// <param name="min">The minimum value.</param>
     /// <param name="max">The maximum value.</param>
     /// <returns>An integer in the specified range.</returns>
-    private int GenerateRandomNumber(int min, int max)
+    private static int GenerateRandomNumber(int min, int max)
     {
         var random = new Random();
         return random.Next(min, max + 1);

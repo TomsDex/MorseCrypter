@@ -1,32 +1,25 @@
 ﻿using MorseCrypter.Core;
-using System.Text;
 
 namespace MorseCrypter.ConsoleApp;
 
+/// <summary>
+/// The navigation class that allows the user to navigate through the UI of the program.
+/// </summary>
 public class Nav
 {
-    private FileReader FileReader { get; set; }
-
+    public static string localFileDirectory = InputValidation.GetUserDirectoryInput("your local translation files");
+    public static List<string> translationFiles = FileReader.GetListOfTranslationSets(localFileDirectory);
+    public static List<Dictionary<string, string>> translationSets = FileReader.GetTranslationSets(translationFiles);
+    
     /// <summary>
-    /// Constructor.
+    /// Initialises the navigation menu.
     /// </summary>
-    public Nav()
-    { 
-        //Initialises the file reader with no hard-coded directory.
-        FileReader = new FileReader();
-    }
-
     public void Initialise()
     {
-        if (FileReader.CharacterSets == null)
-        {
-            FileReader.Initialise();
-        }
-
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("Main Menu\n");
+            Console.Write("Main Menu\n");
             Console.WriteLine("0. Change directory of translation files");
             Console.WriteLine("1. Translate text to Morse code");
             Console.WriteLine("2. Translate Morse code to text");
@@ -56,8 +49,8 @@ public class Nav
 
                 //Starts the training.
                 case 3:
-                    Trainer trainer = new(FileReader);
-                    trainer.TrainingMenu();
+                    StartTraining();
+                    //When the training is finished, restart the navigation.
                     Nav newNav = new();
                     newNav.Initialise();
                     break;
@@ -69,23 +62,21 @@ public class Nav
 
                 //If the user input is invalid, prompt the user to try again.
                 default:
-                    Console.WriteLine("Invalid input!");
+                    Console.WriteLine("Invalid input! Please enter 1-4.");
                     continue;
             }
             break;
         }
     }
 
+    /// <summary>
+    /// Starts the translation process.
+    /// </summary>
+    /// <param name="isTextToMorseCode">A hardcoded value to determine which way the translation process happens.</param>
     public void UIStartTranslate(bool isTextToMorseCode)
     {
         //Allow user to choose a translation set.
-        FileReader.PrintTranslationSetsToConsole();
-        var transSetChoice = InputValidation.GetUserNumberInput();
-        var transSet = FileReader.CharacterSets[transSetChoice];
-        Console.Clear();
-        //Writes the translation set the user has chosen.
-        Console.WriteLine("Translation Set: {0}", 
-            FileReader.CharacterSets[transSetChoice].Values.First().ToUpper());
+        var transSet = ChosenTranslationSet();
 
         //Prompt the user to enter their input.
         Console.WriteLine(isTextToMorseCode 
@@ -102,6 +93,24 @@ public class Nav
             ? Spine.UserInputStringToMorseCode(userInput, transSet)
             : Spine.UserInputMorseCodeToString(userInput, transSet);
 
+        //Outputs the final result.
         Console.WriteLine(convertedText);
+    }
+
+    /// <summary>
+    /// Starts the training process.
+    /// </summary>
+    public void StartTraining()
+    {
+        var transSet = ChosenTranslationSet();
+        Trainer.TrainingMenu(transSet);
+    }
+
+    public Dictionary<string, string> ChosenTranslationSet()
+    {
+        FileReader.PrintTranslationSetsToConsole(translationFiles);
+        var transSetChoice = InputValidation.GetUserNumberInput();
+        Console.Clear();
+        return FileReader.translationSets[transSetChoice];
     }
 }

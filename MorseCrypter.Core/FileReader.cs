@@ -3,37 +3,14 @@
 /// <summary>
 /// Provides a set of functions to read the translation sets from provided files.
 /// </summary>
-public class FileReader //TODO: MAKE THIS STATIC
+public static class FileReader
 {
-    public string LocalFileDirectory { get; set; }
-    public List<string>? TranslationFiles { get; set; }
-    public List<Dictionary<string, string>>? CharacterSets { get; private set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public FileReader()
-    {
-
-    }
-
-    public void Initialise()
-    {
-        if (string.IsNullOrEmpty(LocalFileDirectory))
-        {
-            LocalFileDirectory = InputValidation.GetUserDirectoryInput("your local translation files");
-        }
-
-        TranslationFiles = GetListOfTranslationSets(LocalFileDirectory);
-        CharacterSets = GetTranslationSets(TranslationFiles);
-    }
-
     /// <summary>
     /// Returns a list of every txt file containing the line "# Translation Set #".
     /// </summary>
     /// <param name="inputDirectory">The validated user-specified directory of translation sets.</param>
     /// <returns>A list of the names of the files.</returns>
-    private List<string> GetListOfTranslationSets(string inputDirectory)
+    public static List<string> GetListOfTranslationSets(string inputDirectory)
     {
         
         while (true)
@@ -66,12 +43,11 @@ public class FileReader //TODO: MAKE THIS STATIC
     
 
     /// <summary>
-    /// 
     /// Converts each file into a translation set.
     /// </summary>
     /// <param name="files">The files which are tagged as translation sets.</param>
     /// <returns>A list of a dictionary of the translation sets.</returns>
-    private static List<Dictionary<string, string>>? GetTranslationSets(List<string> files)
+    public static List<Dictionary<string, string>>? GetTranslationSets(List<string> files)
     {
         List<Dictionary<string, string>> translationSets = [];
         foreach (var file in files)
@@ -113,18 +89,23 @@ public class FileReader //TODO: MAKE THIS STATIC
     /// <summary>
     /// Prints out the list of available translation sets to the console.
     /// </summary>
-    public void PrintTranslationSetsToConsole()
+    public static void PrintTranslationSetsToConsole(List<string> files)
     {
         Console.Clear();
-        Console.WriteLine($"\nThere are {TranslationFiles.Count} translation sets available to translate to.\nPlease select which one you would like to use:");
-        for (var i = 0; i < TranslationFiles.Count; i++)
+        Console.WriteLine($"\nThere are {files.Count} translation sets available to translate to.\nPlease select which one you would like to use:");
+        for (var i = 0; i < files.Count; i++)
         {
             //Prints out the name of each translation set.
-            Console.WriteLine("{0}. {1}", i, Path.GetFileNameWithoutExtension(TranslationFiles[i]).ToUpper());
+            Console.WriteLine("{0}. {1}", i, Path.GetFileNameWithoutExtension(files[i]).ToUpper());
         }
     }
 
-    private static bool FileIsEmpty(string file)
+    /// <summary>
+    /// Checks if the file is empty.
+    /// </summary>
+    /// <param name="file">The file to be checked</param>
+    /// <returns>True if the length of the file is 0.</returns>
+    public static bool FileIsEmpty(string file)
     {
         return new FileInfo(file).Length == 0;
     }
