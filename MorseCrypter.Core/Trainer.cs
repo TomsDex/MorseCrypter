@@ -13,7 +13,7 @@ public static class Trainer
     public static void TrainingMenu(Dictionary<string, string> transSet)
     {
         Console.Clear();
-        Console.Write("Translation Set: {0}", transSet.Values.First().ToUpper());
+        Console.WriteLine("Translation Set: {0}", transSet.Values.First().ToUpper());
         while (true)
         {
             Console.WriteLine("Would you like to translate Morse to letters/numbers or letters/numbers to Morse?");
@@ -74,7 +74,7 @@ public static class Trainer
                 : transSet.ElementAt(random).Value;
 
             Console.WriteLine("Streak: {0}", streak);
-            Console.WriteLine("Your question is:\n\n");
+            Console.WriteLine("Your question is:\n");
             Console.WriteLine(question + "\n");
             Console.WriteLine("Your answer: ");
 
@@ -86,12 +86,12 @@ public static class Trainer
 
             if (userAnswer == actualAnswer)
             {
-                Console.WriteLine("Correct!");
+                Console.WriteLine("\nCorrect!");
                 streak++;
             }
             else
             {
-                Console.WriteLine("Incorrect! The correct answer was: {0}", actualAnswer);
+                Console.WriteLine("\nIncorrect! The correct answer was: {0}", actualAnswer);
                 Console.WriteLine("Your streak was {0}", streak);
                 streak = 0;
                 Console.WriteLine("Would you like to play again? Y/N");

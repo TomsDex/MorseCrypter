@@ -92,7 +92,7 @@ public static class FileReader
     public static void PrintTranslationSetsToConsole(List<string> files)
     {
         Console.Clear();
-        Console.WriteLine($"\nThere are {files.Count} translation sets available to translate to.\nPlease select which one you would like to use:");
+        Console.WriteLine($"There are {files.Count} translation sets available to translate to.\nPlease select which one you would like to use:");
         for (var i = 0; i < files.Count; i++)
         {
             //Prints out the name of each translation set.

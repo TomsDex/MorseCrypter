@@ -20,7 +20,6 @@ public class Nav
         {
             Console.Clear();
             Console.Write("Main Menu\n");
-            Console.WriteLine("0. Change directory of translation files");
             Console.WriteLine("1. Translate text to Morse code");
             Console.WriteLine("2. Translate Morse code to text");
             Console.WriteLine("3. Do some training");
@@ -31,12 +30,6 @@ public class Nav
 
             switch (input)
             {
-                //Restarts to change the directory of translation files.
-                case 0:
-                    Console.Clear();
-                    Nav nav = new();
-                    nav.Initialise();
-                    break;
                 //Starts the text to Morse code translation.
                 case 1:
                     UIStartTranslate(true);
@@ -50,9 +43,6 @@ public class Nav
                 //Starts the training.
                 case 3:
                     StartTraining();
-                    //When the training is finished, restart the navigation.
-                    Nav newNav = new();
-                    newNav.Initialise();
                     break;
 
                 //Exits the program.
@@ -106,11 +96,15 @@ public class Nav
         Trainer.TrainingMenu(transSet);
     }
 
+    /// <summary>
+    /// Chooses a translation set.
+    /// </summary>
+    /// <returns>The chosen translation set.</returns>
     public Dictionary<string, string> ChosenTranslationSet()
     {
         FileReader.PrintTranslationSetsToConsole(translationFiles);
         var transSetChoice = InputValidation.GetUserNumberInput();
         Console.Clear();
-        return FileReader.translationSets[transSetChoice];
+        return translationSets[transSetChoice];
     }
 }
