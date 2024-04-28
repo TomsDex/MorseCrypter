@@ -14,7 +14,7 @@ public class Nav
     /// <summary>
     /// Initialises the navigation menu.
     /// </summary>
-    public void Initialise()
+    public static void Initialise()
     {
         while (true)
         {
@@ -63,7 +63,7 @@ public class Nav
     /// Starts the translation process.
     /// </summary>
     /// <param name="isTextToMorseCode">A hardcoded value to determine which way the translation process happens.</param>
-    public void UIStartTranslate(bool isTextToMorseCode)
+    public static void UIStartTranslate(bool isTextToMorseCode)
     {
         //Allow user to choose a translation set.
         var transSet = ChosenTranslationSet();
@@ -90,7 +90,7 @@ public class Nav
     /// <summary>
     /// Starts the training process.
     /// </summary>
-    public void StartTraining()
+    public static void StartTraining()
     {
         var transSet = ChosenTranslationSet();
         Trainer.TrainingMenu(transSet);
@@ -100,7 +100,7 @@ public class Nav
     /// Chooses a translation set.
     /// </summary>
     /// <returns>The chosen translation set.</returns>
-    public Dictionary<string, string> ChosenTranslationSet()
+    public static Dictionary<string, string> ChosenTranslationSet()
     {
         FileReader.PrintTranslationSetsToConsole(translationFiles);
         var transSetChoice = InputValidation.GetUserNumberInput();

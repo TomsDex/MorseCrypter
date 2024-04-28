@@ -1,7 +1,6 @@
-﻿namespace MorseCrypter.Core
-{
-    public static class Login
-    {
+﻿namespace MorseCrypter.Core;
 
-    }
+public static class Login
+{
+
 }

@@ -19,7 +19,7 @@ public static class Translator
         {
             transSet.TryGetValue(c.ToString(), out var morseValue);
             morseText += morseValue;
-            morseText += " ";
+            morseText += "  ";
         }
         return morseText;
     }
@@ -36,7 +36,7 @@ public static class Translator
         var translatedText = string.Empty;
 
         //Split the Morse text into individual characters.
-        var morseChars = morseText.Split(" ");
+        var morseChars = morseText.Split("  ");
 
         //Translate each Morse character to a Base36 character according to the translation set.
         return morseChars.Select(morseChar => transSet

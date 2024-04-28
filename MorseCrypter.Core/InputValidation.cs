@@ -53,7 +53,7 @@ public static class InputValidation
     {
         while (true)
         {
-            Console.WriteLine("Please enter the directory of {0}:", research);
+            Console.WriteLine("\nPlease enter the directory of {0}:", research);
             string? input;
             do
             {
@@ -87,7 +87,7 @@ public static class InputValidation
             }
 
             //If the input is not a Base 36 input, prompt the user to try again.
-            Console.WriteLine("Invalid input!\nPlease enter a valid number.");
+            Console.WriteLine("Invalid input!\nPlease enter a valid letter or number.");
         }
     }
 

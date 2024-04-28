@@ -96,10 +96,11 @@ public static class Trainer
                 streak = 0;
                 Console.WriteLine("Would you like to play again? Y/N");
                 var playAgain = InputValidation.GetUserYNInput();
-                if (playAgain == "Y")
-                {
-                    break; //TODO
-                }
+
+                //If the user wants to play again, restart the training.
+                if (playAgain == "Y") CommenceTraining(isMorseToBase36Training, transSet);
+                //If the user does not want to play again, return to the training menu.
+                else break;
             }
         }
     }
